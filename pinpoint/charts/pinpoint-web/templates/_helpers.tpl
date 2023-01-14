@@ -98,5 +98,5 @@ Create a fully qualified mysql url
 Create Zookeeper address
 */}}
 {{- define "pinpoint-web.zookeeper.address" -}}
-{{- default "pinpoint-zookeeper" .Values.zookeeper.host -}}
+{{- default (printf "%s-zookeeper" .Release.Name) .Values.zookeeper.host -}}
 {{- end }}

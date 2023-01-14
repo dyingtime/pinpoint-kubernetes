@@ -55,5 +55,5 @@ app.kubernetes.io/component: "pinpoint-collector"
 Create Zookeeper address
 */}}
 {{- define "pinpoint-collector.zookeeper.address" -}}
-{{- default "pinpoint-zookeeper" .Values.zookeeper.host -}}
+{{- default (printf "%s-zookeeper" .Release.Name) .Values.zookeeper.host -}}
 {{- end }}
