@@ -65,6 +65,20 @@ Create Mysql Password
 {{- end }}
 
 {{/*
+Create MySQL Host
+*/}}
+{{- define "pinpoint-web.mysql.host" -}}
+{{- default (printf "%s-mysql" .Release.Name) .Values.mysql.host -}}
+{{- end }}
+
+{{/*
+Create MySQL Port
+*/}}
+{{- define "pinpoint-web.mysql.port" -}}
+{{- default 3306 .Values.mysql.port | int }}
+{{- end }}
+
+{{/*
 Create Mysql Database for Pinpoint
 */}}
 {{- define "pinpoint-web.mysql.database" -}}
@@ -75,7 +89,7 @@ Create Mysql Database for Pinpoint
 Create a fully qualified mysql url
 */}}
 {{- define "pinpoint-web.mysql.url" -}}
-{{- $host :=  default "pinpoint-mysql" .Values.mysql.host }}
+{{- $host :=  default (include "pinpoint-web.mysql.host" .) .Values.mysql.host }}
 {{- $port :=  default 3306 .Values.mysql.port | int }}
 {{- printf "jdbc:mysql://%s:%d/%s?characterEncoding=UTF-8" $host $port (include "pinpoint-web.mysql.database" .) }}
 {{- end }}
