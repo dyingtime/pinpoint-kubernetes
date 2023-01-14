@@ -25,6 +25,12 @@ image:
 service:
   type: "LoadBalancer"
   nodePort:
+    grpcAgent:
+    grpcStat:
+    grpcSpan:
+    thriftBase:
+    thriftStat:
+    thriftSpan:
   clusterIP:
 
 receiver:

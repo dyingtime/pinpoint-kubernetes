@@ -10,27 +10,52 @@ metadata:
 {{ include "pinpoint-collector.labels" . | indent 4 }}
 spec:
   ports:
-  - port: {{ .Values.receiver.grpc.agentPort}}
-    targetPort: 9991
-    name: grpc-agent
-  - port: {{ .Values.receiver.grpc.statPort}}
-    targetPort: 9992
-    name: grpc-stat
-  - port: {{ .Values.receiver.grpc.spanPort}}
-    targetPort: 9993
-    name: grpc-span
-  - port: {{ .Values.receiver.thrift.basePort}}
-    targetPort: 9994
-    name: thrift-base
-  - port: {{ .Values.receiver.thrift.statPort}}
-    targetPort: 9995
-    name: thrift-stat
-  - port: {{ .Values.receiver.thrift.spanPort}}
-    targetPort: 9996
-    name: thrift-span
+    - port: {{ .Values.receiver.grpc.agentPort}}
+      targetPort: 9991
+      name: grpc-agent
 {{- if eq "NodePort" .Values.service.type }}
-  {{- if .Values.service.nodePort }}
-      nodePort:  {{ .Values.service.nodePort }}
+  {{- if .Values.service.nodePort.grpcAgent }}
+      nodePort:  {{ .Values.service.nodePort.grpcAgent }}
+  {{- end }}
+{{- end}}
+    - port: {{ .Values.receiver.grpc.statPort}}
+      targetPort: 9992
+      name: grpc-stat
+{{- if eq "NodePort" .Values.service.type }}
+  {{- if .Values.service.nodePort.grpcStat }}
+      nodePort:  {{ .Values.service.nodePort.grpcStat }}
+  {{- end }}
+{{- end}}
+    - port: {{ .Values.receiver.grpc.spanPort}}
+      targetPort: 9993
+      name: grpc-span
+{{- if eq "NodePort" .Values.service.type }}
+  {{- if .Values.service.nodePort.grpcSpan }}
+      nodePort:  {{ .Values.service.nodePort.grpcSpan }}
+  {{- end }}
+{{- end}}
+    - port: {{ .Values.receiver.thrift.basePort}}
+      targetPort: 9994
+      name: thrift-base
+{{- if eq "NodePort" .Values.service.type }}
+  {{- if .Values.service.nodePort.thriftBase }}
+      nodePort:  {{ .Values.service.nodePort.thriftBase }}
+  {{- end }}
+{{- end}}
+    - port: {{ .Values.receiver.thrift.statPort}}
+      targetPort: 9995
+      name: thrift-stat
+{{- if eq "NodePort" .Values.service.type }}
+  {{- if .Values.service.nodePort.thriftStat }}
+      nodePort:  {{ .Values.service.nodePort.thriftStat }}
+  {{- end }}
+{{- end}}
+    - port: {{ .Values.receiver.thrift.spanPort}}
+      targetPort: 9996
+      name: thrift-span
+{{- if eq "NodePort" .Values.service.type }}
+  {{- if .Values.service.nodePort.thriftSpan }}
+      nodePort:  {{ .Values.service.nodePort.thriftSpan }}
   {{- end }}
 {{- end }}
 {{- if eq "ClusterIP" .Values.service.type }}
