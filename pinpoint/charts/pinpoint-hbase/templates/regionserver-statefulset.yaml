@@ -62,14 +62,16 @@ spec:
           httpGet:
             path: /
             port: 16030
-          initialDelaySeconds: 5
-          timeoutSeconds: 2
+          initialDelaySeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 2
         livenessProbe:
           httpGet:
             path: /
             port: 16030
-          initialDelaySeconds: 10
-          timeoutSeconds: 2
+          initialDelaySeconds: 40
+          timeoutSeconds: 10
+          failureThreshold: 4
         volumeMounts:
         - name: hbase-config
           mountPath: /tmp/hbase-config
