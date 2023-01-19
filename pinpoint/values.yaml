@@ -33,7 +33,8 @@ zookeeper:
   persistence:
     enabled: true
     size: 10Gi
-
+  volumePermissions:
+    enabled: true
 ### See helm stable chart to apply other settings of HDFS.
 ### Link : https://github.com/Gradiant/charts/tree/master/charts/hdfs
 hdfs:
