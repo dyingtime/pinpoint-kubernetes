@@ -5,10 +5,13 @@ metadata:
   labels:
 {{ include "pinpoint-web.labels" . | indent 4 }}
 data:
-  CLUSTER_ENABLE:  "{{ .Values.clusterEnable }}"
+  CLUSTER_ENABLE: "{{ .Values.clusterEnable }}"
   PINPOINT_ZOOKEEPER_ADDRESS: "{{ include "pinpoint-collector.zookeeper.address" . }}"
   SPRING_PROFILES: "{{ .Values.profiles }}"
   JAVA_OPTS: "-Dspring.profiles.active={{ .Values.profiles }}"
-  LOGGING_LEVEL_ROOT:  "{{ .Values.loggingLevelRoot }}"
-  FLINK_CLUSTER_ENABLE:  "{{ .Values.flink.enable }}"
+  LOGGING_LEVEL_ROOT: "{{ .Values.loggingLevelRoot }}"
+  FLINK_CLUSTER_ENABLE: "{{ .Values.flink.enable }}"
   FLINK_CLUSTER_ZOOKEEPER_ADDRESS: "{{ include "pinpoint-collector.zookeeper.address" . }}"
+  {{- if .Values.metric.enabled }}
+  PINPOINT_METRIC_KAFKA_BOOTSTRAP_SERVERS: "{{ include "pinpoint-collector.kafka.bootstrap.servers" . }}"
+  {{- end -}}

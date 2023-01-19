@@ -49,3 +49,10 @@ clusterEnable: true
 flink:
   enable: false
 
+metric:
+  enabled: false
+
+kafka:
+  port: ""
+  bootstrap:
+    servers: ""

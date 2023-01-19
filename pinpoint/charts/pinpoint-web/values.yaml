@@ -3,20 +3,20 @@ replicaCount: 1
 imagePullPolicy: Always
 ## Annotations to be added to Pinpoint Web pods
 ##
-podAnnotations: {}
+podAnnotations: { }
 ## Pod affinity
 ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
 ##
-affinity: {}
+affinity: { }
 
 ## Node tolerations for node-exporter scheduling to nodes with taints
 ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
 ##
-tolerations: []
+tolerations: [ ]
   # - key: "key"
   #   operator: "Equal|Exists"
-  #   value: "value"
-  #   effect: "NoSchedule|PreferNoSchedule|NoExecute(1.6 only)"
+#   value: "value"
+#   effect: "NoSchedule|PreferNoSchedule|NoExecute(1.6 only)"
 
 # Configuration for web UI service
 service:
@@ -60,3 +60,11 @@ mail:
     startTls:
       enable: false
       required: false
+
+metric:
+  enabled: false
+pinot:
+  urlOverride: ""
+  port: ""
+  username: ""
+  password: ""

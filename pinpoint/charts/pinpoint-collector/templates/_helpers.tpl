@@ -57,3 +57,8 @@ Create Zookeeper address
 {{- define "pinpoint-collector.zookeeper.address" -}}
 {{- default (printf "%s-zookeeper" .Release.Name) .Values.zookeeper.host -}}
 {{- end }}
+
+{{- define "pinpoint-collector.kafka.bootstrap.servers" -}}
+{{- $port :=  default 9092 .Values.kafka.port | int }}
+{{- default (printf "%s-kafka:%d" .Release.Name $port) (include "common.tplvalues.render" (dict "value" .Values.kafka.bootstrap.servers "context" $)) -}}
+{{- end }}

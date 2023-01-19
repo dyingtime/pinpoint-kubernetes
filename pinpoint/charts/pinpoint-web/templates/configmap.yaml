@@ -26,3 +26,8 @@ data:
   ALARM_MAIL_SMTP_STARTTLS_ENABLE: "{{ .Values.mail.smtp.startTls.enable }}"
   ALARM_MAIL_SMTP_STARTTLS_REQUIRED: "{{ .Values.mail.smtp.startTls.required }}"
   ALARM_MAIL_DEBUG: "{{ .Values.mail.debug }}"
+  {{- if .Values.metric.enabled }}
+  PINPOINT_PINOT_JDBC_URL: "{{ include "pinpoint-web.pinot.url" .}}"
+  PINPOINT_PINOT_JDBC_USERNAME: "{{ include "pinpoint-web.pinot.username" .}}"
+  PINPOINT_PINOT_JDBC_PASSWORD: "{{ include "pinpoint-web.pinot.password" .}}"
+  {{- end -}}

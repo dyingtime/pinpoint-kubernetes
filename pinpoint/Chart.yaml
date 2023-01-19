@@ -8,6 +8,9 @@ version: 0.1.0
 appVersion: 2.5.0
 # Dependency for Pinpoint
 dependencies:
+    - name: common
+      version: 2.x.x
+      repository: https://charts.bitnami.com/bitnami
     - name: mysql
       version: 1.6.7
       repository: https://charts.helm.sh/stable
@@ -20,3 +23,11 @@ dependencies:
       version: ~2.1.0
       repository: https://charts.helm.sh/incubator
       condition: zookeeper.enabled
+    - name: pinot
+      version: ~0.2.6
+      repository: https://raw.githubusercontent.com/apache/pinot/master/kubernetes/helm
+      condition: pinot.enabled
+    - name: kafka
+      version: ~20.0.2
+      repository: https://charts.bitnami.com/bitnami
+      condition: kafka.enabled

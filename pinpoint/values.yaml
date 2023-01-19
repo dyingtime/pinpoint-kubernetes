@@ -5,7 +5,7 @@ mysql:
   # docker image
   image: "pinpointdocker/pinpoint-mysql"
   # tag
-  imageTag: "2.1.0"
+  imageTag: "2.5.0"
 
   ## Specify password for root user
   ## Default: random 10 character string
@@ -27,12 +27,12 @@ mysql:
 
 ### See helm stable chart to apply other settings of Zookeeper.
 ### Link : https://github.com/helm/charts/tree/master/incubator/zookeeper
-zookeeper: 
+zookeeper:
   enabled: true
   replicaCount: 1
   persistence:
     enabled: true
-    size : 10Gi
+    size: 10Gi
 
 ### See helm stable chart to apply other settings of HDFS.
 ### Link : https://github.com/Gradiant/charts/tree/master/charts/hdfs
@@ -45,8 +45,44 @@ hdfs:
 
     nameNode:
       enabled: true
-      size : "20Gi"
-      
+      size: "20Gi"
+
+### See helm stable chart to apply other settings of Kafka.
+### Link : https://github.com/bitnami/charts/tree/main/bitnami/kafka
+kafka:
+  enabled: false
+  persistence:
+    size: 8Gi
+  volumePermissions:
+    enabled: true
+  replicaCount: 3
+  provisioning:
+    enabled: true
+    topics:
+      - name: system-metric-data-type
+      - name: system-metric-tag
+      - name: system-metric-double
+      - name: url-stat
+  externalZookeeper:
+    servers:
+      - "{{ .Release.Name }}-zookeeper"
+  zookeeper:
+    enabled: false
+
+### See helm stable chart to apply other settings of Pinot.
+### Link : https://github.com/helm/charts/tree/master/incubator/zookeeper
+pinot:
+  enabled: false
+  controller:
+    external:
+      enabled: false
+  broker:
+    external:
+      enabled: false
+  zookeeper:
+    enabled: false
+    urlOverride: "{{ .Release.Name }}-zookeeper"
+
 pinpoint-web:
   ### If you want to use external MySQL or other settings that are different from default values, fill these fields.
   ### When the field is empty, it applies the default value.
@@ -56,17 +92,20 @@ pinpoint-web:
   ###   mysql.user : admin
   ###   mysql.password : admin
   mysql:
-    host: 
-    port: 
-    user: 
-    password: 
-    database: 
-  
-  ### External zookeeper address (Default : pinpoint-zookeeper) 
-  zookeeper: 
     host:
+    port:
+    user:
+    password:
+    database:
+  
+  ### External zookeeper address (Default : {{ .Release.Name }}-zookeeper)
+  zookeeper:
+    host:
+  ### External pinot address (Default : {{ .Release.Name }}-pinot)
+  pinot:
+    urlOverride: ""
 
 pinpoint-collector:
-  ### External zookeeper address (Default : pinpoint-zookeeper) 
+  ### External zookeeper address (Default : pinpoint-zookeeper)
   zookeeper:
     host:

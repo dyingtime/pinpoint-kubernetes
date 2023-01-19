@@ -100,3 +100,25 @@ Create Zookeeper address
 {{- define "pinpoint-web.zookeeper.address" -}}
 {{- default (printf "%s-zookeeper" .Release.Name) .Values.zookeeper.host -}}
 {{- end }}
+
+{{/*
+Create Pinot Username
+*/}}
+{{- define "pinpoint-web.pinot.username" -}}
+{{- default "admin" .Values.pinot.username -}}
+{{- end }}
+
+{{/*
+Create Pinot Password
+*/}}
+{{- define "pinpoint-web.pinot.password" -}}
+{{- default "admin" .Values.pinot.password -}}
+{{- end }}
+
+{{/*
+Create a fully qualified pinot url
+*/}}
+{{- define "pinpoint-web.pinot.url" -}}
+{{- $port :=  default 9000 .Values.pinot.port | int -}}
+{{- default (printf "jdbc:pinot://%s-pinot-controller:%d" .Release.Name $port) (include "common.tplvalues.render" (dict "value" .Values.pinot.urlOverride "context" $)) -}}
+{{- end }}
