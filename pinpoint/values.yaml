@@ -73,6 +73,8 @@ kafka:
 ### See helm stable chart to apply other settings of Pinot.
 ### Link : https://github.com/helm/charts/tree/master/incubator/zookeeper
 pinot:
+  image:
+    pullPolicy: IfNotPresent
   enabled: false
   controller:
     external:
