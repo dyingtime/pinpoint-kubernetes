@@ -21,6 +21,7 @@ spec:
       initContainers:
        - name: wait-mysql
          image: alpine
+         imagePullPolicy: {{ .Values.imagePullPolicy }}
          command: ["sh", "-c", "for i in $(seq 1 300); do nc -zvw1 {{ include "pinpoint-web.mysql.host" . }} {{ include "pinpoint-web.mysql.port" . }} && exit 0 || sleep 3; done; exit 1"]
       containers:
         - name: {{ .Chart.Name }}
