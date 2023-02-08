@@ -63,6 +63,7 @@ data:
     # Below are what we set by default.  May only work with SUN JVM.
     # For more on why as well as other possible settings,
     # see http://hbase.apache.org/book.html#performance
+    export HBASE_REGIONSERVER_OPTS="-XX:MinRAMPercentage=80.0 -XX:MaxRAMPercentage=80.0"
     export HBASE_OPTS="$HBASE_OPTS -XX:+UseConcMarkSweepGC"
   hbase-site.xml: |
     <?xml version="1.0"?>
