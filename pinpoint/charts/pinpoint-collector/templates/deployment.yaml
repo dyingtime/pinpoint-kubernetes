@@ -39,6 +39,10 @@ spec:
             protocol: UDP
           - containerPort: 9996
             protocol: UDP
+          {{- if .Values.metric.enabled }}
+          - containerPort: 15200
+            protocol: TCP
+          {{ end }}
           livenessProbe:
             failureThreshold: 3
             tcpSocket:

@@ -58,6 +58,12 @@ spec:
       nodePort:  {{ .Values.service.nodePort.thriftSpan }}
   {{- end }}
 {{- end }}
+    - port: 15200
+      targetPort: 15200
+      name: metric
+{{- if eq "NodePort" .Values.service.type }}
+      nodePort:  31520
+{{- end}}
 {{- if eq "ClusterIP" .Values.service.type }}
   {{- if .Values.service.clusterIP }}
   clusterIP:  {{ .Values.service.clusterIP }}
